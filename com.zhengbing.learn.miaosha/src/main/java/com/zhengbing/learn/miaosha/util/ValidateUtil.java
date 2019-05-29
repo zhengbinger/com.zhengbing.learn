@@ -15,7 +15,7 @@ public class ValidateUtil {
 
     /**
      *
-     * validate mobile number format
+     * validator mobile number format
      *
      * @param mobile
      * @return

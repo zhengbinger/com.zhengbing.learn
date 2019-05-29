@@ -1,25 +1,33 @@
 package com.zhengbing.learn.miaosha.controller;
 
-import com.sun.tools.javac.jvm.Code;
+import com.sun.org.apache.regexp.internal.RE;
 import com.zhengbing.learn.miaosha.common.CodeMsg;
 import com.zhengbing.learn.miaosha.common.Result;
+import com.zhengbing.learn.miaosha.common.exception.GlobalException;
 import com.zhengbing.learn.miaosha.controller.vo.LoginVO;
+import com.zhengbing.learn.miaosha.service.MiaoshaUserService;
 import com.zhengbing.learn.miaosha.util.ValidateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.Valid;
+
 
 /**
  * Created by zhengbing on 2019/5/28.
- * Since Version ${VERSION}
+ * Since Version 1.0
  */
 @Controller
 @RequestMapping("/login")
 public class LoginController {
+
+    @Autowired
+    MiaoshaUserService miaoshaUserService;
 
     private Logger logger = LoggerFactory.getLogger( LoginController.class );
 
@@ -31,17 +39,18 @@ public class LoginController {
 
     @RequestMapping("/do_login")
     @ResponseBody
-    public Result<Boolean> doLogin( LoginVO loginVO){
+    public Result<Boolean> doLogin(@Valid LoginVO loginVO){
         logger.info( loginVO.toString() );
-        if ( StringUtils.isEmpty(loginVO.getMobile()) ){
-            return Result.error( CodeMsg.MOBILE_EMPTY );
-        }
-        if ( StringUtils.isEmpty(loginVO.getPassword()) ){
-            return Result.error( CodeMsg.PASSWORD_EMPTY );
-        }
-        if (! ValidateUtil.isMobile( loginVO.getMobile() ) ){
-            return Result.error( CodeMsg.MOBILE_ERROR );
-        }
-        return null;
+//        if ( StringUtils.isEmpty(loginVO.getMobile()) ){
+//            return Result.error( CodeMsg.MOBILE_EMPTY );
+//        }
+//        if ( StringUtils.isEmpty(loginVO.getPassword()) ){
+//            return Result.error( CodeMsg.PASSWORD_EMPTY );
+//        }
+//        if (! ValidateUtil.isMobile( loginVO.getMobile() ) ){
+//            return Result.error( CodeMsg.MOBILE_ERROR );
+//        }
+        miaoshaUserService.login(loginVO);
+        return Result.success( true );
     }
 }
