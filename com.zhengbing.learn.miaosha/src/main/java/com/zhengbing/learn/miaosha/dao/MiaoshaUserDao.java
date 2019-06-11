@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Select;
 
 /**
  * Created by zhengbing on 2019/5/29.
- * Since Version ${VERSION}
+ * Since Version 1.0
  */
 @Mapper
 public interface MiaoshaUserDao {

@@ -11,9 +11,9 @@ spring:
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
+
 # JDBC 配置(驱动类自动从url的mysql识别,数据源类型自动识别)
 # 或spring.datasource.url=
-
   datasource:
     druid:
       url: jdbc:mysql://localhost:3306/miaosha?useUnicode=true&characterEncoding=UTF8&useSSL=false
@@ -25,29 +25,29 @@ spring:
 #spring.datasource.druid.driver-class-name=com.mysql.jdbc.Driver
 
 #连接池配置(通常来说，只需要修改initialSize、minIdle、maxActive
-# 如果用Oracle，则把poolPreparedStatements配置为true，mysql可以配置为false。分库分表较多的数据库，建议配置为false。removeabandoned不建议在生产环境中打开如果用SQL Server，建议追加配置)
-      initial-size: 1
-      max-active: 20
-      min-idle: 1
+# 如果用Oracle，则把poolPreparedStatements配置为true，mysql可以配置为false。分库分表较多的数据库，建议配置为false。
+# removeabandoned不建议在生产环境中打开如果用SQL Server，建议追加配置)
+      initial-size: 100
+      max-active: 1000
+      min-idle: 400
 # 配置获取连接等待超时的时间
       max-wait: 60000
-#打开PSCache，并且指定每个连接上PSCache的大小
+# 打开PSCache，并且指定每个连接上PSCache的大小
       pool-prepared-statements: true
       max-pool-prepared-statement-per-connection-size: 20
-#spring.datasource.druid.max-open-prepared-statements=和上面的等价
+# spring.datasource.druid.max-open-prepared-statements=和上面的等价
       validation-query: SELECT 'x'
-#spring.datasource.druid.validation-query-timeout=
+# spring.datasource.druid.validation-query-timeout=
       test-on-borrow: false
       test-on-return: false
       test-while-idle: true
-#配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+# 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
       time-between-eviction-runs-millis: 60000
-#配置一个连接在池中最小生存的时间，单位是毫秒
+# 配置一个连接在池中最小生存的时间，单位是毫秒
       min-evictable-idle-time-millis: 300000
-#spring.datasource.druid.max-evictable-idle-time-millis=
-#配置多个英文逗号分隔
+# spring.datasource.druid.max-evictable-idle-time-millis=
+# 配置多个英文逗号分隔
       filters: stat
-
 
 # WebStatFilter配置，说明请参考Druid Wiki，配置_配置WebStatFilter
 #是否启用StatFilter默认值true
@@ -102,10 +102,16 @@ spring:
 redis:
   host: 127.0.0.1
   port: 6379
-  timeout: 3
+  timeout: 12
   password: 123456
-  poolMaxTotal: 10
-  poolMaxIdle: 8
-  poolMaxWait: 3
+  poolMaxTotal: 1000
+  poolMaxIdle: 300
+  poolMaxWait: 8
 
-
+logging:
+  level:
+    com:
+      zhengbing:
+        learn:
+          miaosha:
+            dao: info

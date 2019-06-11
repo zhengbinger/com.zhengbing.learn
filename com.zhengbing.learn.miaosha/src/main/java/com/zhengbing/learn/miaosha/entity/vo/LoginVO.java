@@ -1,4 +1,4 @@
-package com.zhengbing.learn.miaosha.controller.vo;
+package com.zhengbing.learn.miaosha.entity.vo;
 
 import com.zhengbing.learn.miaosha.common.validator.IsMobile;
 

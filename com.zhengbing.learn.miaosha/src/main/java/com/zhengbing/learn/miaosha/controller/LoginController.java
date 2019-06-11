@@ -1,20 +1,16 @@
 package com.zhengbing.learn.miaosha.controller;
 
-import com.sun.org.apache.regexp.internal.RE;
-import com.zhengbing.learn.miaosha.common.CodeMsg;
 import com.zhengbing.learn.miaosha.common.Result;
-import com.zhengbing.learn.miaosha.common.exception.GlobalException;
-import com.zhengbing.learn.miaosha.controller.vo.LoginVO;
+import com.zhengbing.learn.miaosha.entity.vo.LoginVO;
 import com.zhengbing.learn.miaosha.service.MiaoshaUserService;
-import com.zhengbing.learn.miaosha.util.ValidateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 
@@ -39,18 +35,10 @@ public class LoginController {
 
     @RequestMapping("/do_login")
     @ResponseBody
-    public Result<Boolean> doLogin(@Valid LoginVO loginVO){
+    public Result<Boolean> doLogin( HttpServletResponse response,@Valid LoginVO loginVO){
         logger.info( loginVO.toString() );
-//        if ( StringUtils.isEmpty(loginVO.getMobile()) ){
-//            return Result.error( CodeMsg.MOBILE_EMPTY );
-//        }
-//        if ( StringUtils.isEmpty(loginVO.getPassword()) ){
-//            return Result.error( CodeMsg.PASSWORD_EMPTY );
-//        }
-//        if (! ValidateUtil.isMobile( loginVO.getMobile() ) ){
-//            return Result.error( CodeMsg.MOBILE_ERROR );
-//        }
-        miaoshaUserService.login(loginVO);
+        miaoshaUserService.login(response,loginVO);
+
         return Result.success( true );
     }
 }

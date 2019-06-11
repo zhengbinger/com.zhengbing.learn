@@ -1,10 +1,8 @@
 package com.zhengbing.learn.miaosha.common.redis;
 
-import java.security.Key;
-
 /**
  * Created by zhengbing on 2019/5/28.
- * Since Version ${VERSION}
+ * Since Version 1.0
  */
 public abstract class BasePrefix implements KeyPrefix {
 
