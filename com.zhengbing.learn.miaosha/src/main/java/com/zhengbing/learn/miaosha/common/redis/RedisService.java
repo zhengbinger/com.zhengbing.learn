@@ -2,11 +2,9 @@ package com.zhengbing.learn.miaosha.common.redis;
 
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
 
 /**
  * Created by zhengbing on 2019/5/28.
@@ -18,7 +16,15 @@ public class RedisService {
     @Autowired
     JedisPool jedisPool;
 
-
+    /**
+     * get data
+     *
+     * @param prefix
+     * @param key
+     * @param clazz
+     * @param <T>
+     * @return
+     */
     public <T> T get(KeyPrefix prefix,String key,Class<T> clazz){
         Jedis jedis = null;
         try{
@@ -32,6 +38,15 @@ public class RedisService {
         }
     }
 
+    /**
+     * set data
+     *
+     * @param prefix
+     * @param key
+     * @param value
+     * @param <T>
+     * @return
+     */
     public <T> boolean set(KeyPrefix prefix,String key,T value){
         Jedis jedis = null;
         try{
@@ -50,6 +65,13 @@ public class RedisService {
         }
     }
 
+    /**
+     *
+     * @param prefix
+     * @param key
+     * @param <T>
+     * @return
+     */
     public <T> boolean exit(KeyPrefix prefix,String key){
         Jedis jedis = null;
         try{
@@ -61,6 +83,13 @@ public class RedisService {
         }
     }
 
+    /**
+     *
+     * @param prefix
+     * @param key
+     * @param <T>
+     * @return
+     */
     public <T> Long incr(KeyPrefix prefix,String key){
         Jedis jedis = null;
         try{
@@ -72,6 +101,13 @@ public class RedisService {
         }
     }
 
+    /**
+     *
+     * @param prefix
+     * @param key
+     * @param <T>
+     * @return
+     */
     public <T> Long decr(KeyPrefix prefix,String key){
         Jedis jedis = null;
         try{
@@ -83,7 +119,32 @@ public class RedisService {
         }
     }
 
-    private <T> String bean2String( T value ) {
+    /**
+     * 删除
+     *
+     * @param prefix
+     * @param key
+     * @return
+     */
+    public boolean delete(KeyPrefix prefix,String key){
+        Jedis jedis = null;
+        try{
+            jedis = jedisPool.getResource();
+            String realKey = prefix.getPrefix()+key;
+            long ret = jedis.decr( realKey );
+            return ret>0;
+        }finally {
+            return2Pool(jedis);
+        }
+    }
+
+    /**
+     *
+     * @param value
+     * @param <T>
+     * @return
+     */
+    public static <T> String bean2String( T value ) {
         if( null == value){
             return "";
         }
@@ -99,7 +160,14 @@ public class RedisService {
         }
     }
 
-    private <T> T string2Bean( String str ,Class<T> clazz) {
+    /**
+     *
+     * @param str
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    public static <T> T string2Bean( String str ,Class<T> clazz) {
         if( null == str || str.length() <=0 || null == clazz){
             return null;
         }
@@ -116,6 +184,11 @@ public class RedisService {
 
     }
 
+    /**
+     * return connection to pool
+     *
+     * @param jedis
+     */
     private void return2Pool( Jedis jedis ) {
         if ( null != jedis ){
             jedis.close();

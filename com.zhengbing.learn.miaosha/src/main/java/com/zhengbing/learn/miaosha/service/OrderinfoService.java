@@ -44,4 +44,8 @@ public class OrderinfoService {
         long orderId = orderinfoDao.insert( order );
         return order;
     }
+
+    public Orderinfo getOrderById( long orderId ) {
+        return orderinfoDao.getById( orderId );
+    }
 }

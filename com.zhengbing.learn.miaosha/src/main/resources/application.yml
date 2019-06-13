@@ -8,6 +8,18 @@ mybatis:
   mapper-locations: classpath:com/zhengbing/learn/miaosha/dao/*.xml
 
 spring:
+
+  ## 静态资源配置，包括浏览器缓存策略
+  resources:
+    add-mappings: true
+    chain:
+      cache: true
+      enabled: true
+      html-application-cache: true
+      compressed: true
+    static-locations: classpath:/static/
+    cache:
+      period: 3600
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
@@ -99,6 +111,29 @@ spring:
 
 # Spring监控配置，说明请参考Druid Github Wiki，配置_Druid和Spring关联监控配置
       #aop-patterns= # Spring监控AOP切入点，如x.y.z.service.*,配置多个英文逗号分隔
+      driver-class-name: com.mysql.jdbc.Driver
+
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    listener:
+      simple:
+        concurrency: 10  #消费者并发数量
+        max-concurrency: 10 #消费者并发数量
+        prefetch: 1 # 每次取多少个
+        auto-startup: true # 自动启动
+        default-requeue-rejected: true
+    template:
+      retry:
+        enabled: true  #发送者失败重试
+        initial-interval: 1000  # 重试间隔ms
+        max-attempts: 3 #重试次数
+        max-interval: 10000 #最大重试间隔
+        multiplier: 1.0  #重试间隔 递增算法 倍乘
+
 redis:
   host: 127.0.0.1
   port: 6379

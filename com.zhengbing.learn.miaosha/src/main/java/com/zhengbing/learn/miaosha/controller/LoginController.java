@@ -35,10 +35,10 @@ public class LoginController {
 
     @RequestMapping("/do_login")
     @ResponseBody
-    public Result<Boolean> doLogin( HttpServletResponse response,@Valid LoginVO loginVO){
+    public Result<String> doLogin( HttpServletResponse response,@Valid LoginVO loginVO){
         logger.info( loginVO.toString() );
         miaoshaUserService.login(response,loginVO);
 
-        return Result.success( true );
+        return Result.success( miaoshaUserService.login(response,loginVO) );
     }
 }

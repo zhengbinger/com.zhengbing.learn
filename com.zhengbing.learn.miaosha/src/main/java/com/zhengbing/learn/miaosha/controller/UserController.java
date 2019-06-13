@@ -1,6 +1,7 @@
 package com.zhengbing.learn.miaosha.controller;
 
 import com.zhengbing.learn.miaosha.common.Result;
+import com.zhengbing.learn.miaosha.common.rabbitmq.MQSender;
 import com.zhengbing.learn.miaosha.common.redis.RedisService;
 import com.zhengbing.learn.miaosha.common.redis.UserKey;
 import com.zhengbing.learn.miaosha.entity.MiaoshaUser;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -24,6 +26,9 @@ public class UserController {
 
     @Autowired
     RedisService redisService;
+
+    @Autowired
+    MQSender sender;
 
     @RequestMapping("/user/info")
     @ResponseBody
@@ -45,6 +50,13 @@ public class UserController {
         user.setName( "china" );
         int result = userService.insert( user );
         return Result.success( result );
+    }
+
+    @RequestMapping(value = "/mq",method = RequestMethod.GET)
+    @ResponseBody
+    public Result<Integer> mq(){
+       sender.send( "zhengbing" );
+        return Result.success( 1 );
     }
 
     @RequestMapping("/redis/get")

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @SpringBootApplication
 @Controller
-public class MiaoshaApplication {
-
+public class MiaoshaApplication{
+//	public class MiaoshaApplication extends SpringBootServletInitializer {
 	@RequestMapping("/hello")
 	@ResponseBody
 	public Result<String> hello(){
@@ -31,6 +31,11 @@ public class MiaoshaApplication {
 		model.addAttribute( "name","china is good" );
 		return "hello";
 	}
+
+//	@Override
+//	protected SpringApplicationBuilder configure( SpringApplicationBuilder builder){
+//		return builder.sources(MiaoshaApplication.class);
+//	}
 
 
 	public static void main(String[] args) {
