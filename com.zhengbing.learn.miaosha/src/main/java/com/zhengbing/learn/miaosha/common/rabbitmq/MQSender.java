@@ -19,16 +19,41 @@ public class MQSender {
     @Autowired
     AmqpTemplate amqpTemplate;
 
-    public void send( Object message ){
-        String msg = RedisService.bean2String( message );
+    public void sendMiaoshaMessage(MiaoshaMessage mm){
+        String msg = RedisService.bean2String( mm );
         logger.info( "send message:"+msg );
-        amqpTemplate.convertAndSend(MQConfig.QUEUE_NAME, msg );
+        amqpTemplate.convertAndSend(MQConfig.MIAO_SHA_QUEUE, msg );
     }
 
-    public void sendTopic( Object message ){
-        String msg = RedisService.bean2String( message );
-        logger.info( "send topic message:"+msg );
-        amqpTemplate.convertAndSend(MQConfig.TOPIC_QUEUE1,"topic_key1", msg +"1");
-        amqpTemplate.convertAndSend(MQConfig.TOPIC_QUEUE2,"topic_key2", msg +"2");
-    }
+//    public void send( Object message ){
+//        String msg = RedisService.bean2String( message );
+//        logger.info( "send message:"+msg );
+//        amqpTemplate.convertAndSend(MQConfig.QUEUE_NAME, msg );
+//    }
+//
+//    public void sendTopic( Object message ){
+//        String msg = RedisService.bean2String( message );
+//        logger.info( "send topic message:"+msg );
+//        amqpTemplate.convertAndSend(MQConfig.TOPIC_EXCHANGE,"topic.key1", msg +"1");
+//        amqpTemplate.convertAndSend(MQConfig.TOPIC_EXCHANGE,"topic.key2", msg +"2");
+//    }
+//
+//    public void sendFanout( Object message ){
+//        String msg = RedisService.bean2String( message );
+//        logger.info( "send fanout message:"+msg );
+//        amqpTemplate.convertAndSend( MQConfig.FANOUT_EXCHANGE,"", msg +"1");
+//    }
+//
+//    public void sendHeaders( Object message ){
+//        String msg = RedisService.bean2String( message );
+//
+//        logger.info( "send headers message:"+msg );
+//        MessageProperties messageProperties = new MessageProperties();
+//        messageProperties.setHeader( "header1","value1" );
+//        messageProperties.setHeader( "header2","value2" );
+//        Message obj = new Message( msg.getBytes(),messageProperties);
+//
+//        amqpTemplate.convertAndSend( MQConfig.HEADERS_EXCHANGE,"", obj);
+//    }
+
 }

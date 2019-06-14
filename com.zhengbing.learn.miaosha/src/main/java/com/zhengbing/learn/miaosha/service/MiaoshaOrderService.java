@@ -25,12 +25,14 @@ public class MiaoshaOrderService {
         return miaoshaOrderDao.insert( miaoshaOrder );
     }
 
-    public long createMiaoshaOrder( MiaoshaUser user, GoodsVO goodsVO, long orderId){
+    public MiaoshaOrder createMiaoshaOrder( MiaoshaUser user, GoodsVO goodsVO, long orderId){
         MiaoshaOrder miaoshaOrder = new MiaoshaOrder();
         miaoshaOrder.setGoodsId( goodsVO.getId() );
         miaoshaOrder.setOrderId( orderId );
         miaoshaOrder.setUserId( user.getId() );
-
-        return miaoshaOrderDao.insert(miaoshaOrder);
+        if ( miaoshaOrderDao.insert(miaoshaOrder) >0 ){
+            return miaoshaOrder;
+        }
+        return null;
     }
 }

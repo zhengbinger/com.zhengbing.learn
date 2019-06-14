@@ -72,7 +72,7 @@ public class RedisService {
      * @param <T>
      * @return
      */
-    public <T> boolean exit(KeyPrefix prefix,String key){
+    public <T> boolean exists(KeyPrefix prefix,String key){
         Jedis jedis = null;
         try{
             jedis = jedisPool.getResource();

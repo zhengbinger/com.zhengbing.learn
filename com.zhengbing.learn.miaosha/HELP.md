@@ -86,7 +86,7 @@ For further reference, please consider the following sections:
 5. Nginx水平扩展
 6. 压测
 7. 数据库分库分表，阿里mycat中间件
-#### 优化思路：减少数据库的访问
+#### 优化思路：减少数据库的访问，同步下单改造为异步下单，
 1. 系统初始化，预先把商品的库存加载到Redis
 2. 收到请求，redis预减库存，如遇库存不足，直接返回
 3. 请求进入消息队列，立即返回排队中，可以缓冲并发
@@ -102,4 +102,46 @@ For further reference, please consider the following sections:
 
     发送者发送消息并不是直接发送到队列里，而是先发送到交换机，再通过交换机发送给消息队列
 1. Direct
-2. Topic
+2. Topic 
+    1.  定义topic  
+            
+            @RabbitListener(queues = MQConfig.TOPIC_QUEUE1)
+            public void receiveTopic1( String message ){
+                logger.info( "received topic1 message:" +message);
+            }
+     2. 定义exchange  交换机
+     
+            @Bean
+            public TopicExchange topicExchange(){
+                return new TopicExchange( TOPIC_EXCHANGE );
+            }
+      3. 定义sender  
+       
+                public void sendTopic( Object message ){
+                    String msg = RedisService.bean2String( message );
+                    logger.info( "send topic message:"+msg );
+                    amqpTemplate.convertAndSend(MQConfig.TOPIC_EXCHANGE,"topic.key1", msg +"1");
+                    amqpTemplate.convertAndSend(MQConfig.TOPIC_EXCHANGE,"topic.key2", msg +"2");
+                }
+       4. 定义receiver  
+       
+                    @RabbitListener(queues = MQConfig.TOPIC_QUEUE1)
+                    public void receiveTopic1( String message ){
+                        logger.info( "received topic1 message:" +message);
+                    }
+                
+                
+                    @RabbitListener(queues = MQConfig.TOPIC_QUEUE2)
+                    public void receiveTopic2( String message ){
+                        logger.info( "received topic2 message:" +message);
+                    }
+3. fanout 广播模式，可以发送到多个queue
+4. heads 模式
+
+## 安全优化  
+
+1. 秒杀接口隐藏
+    思路：秒杀开始之前，先去请求接口获取秒杀地址
+    接口改造，添加PathVariable参数
+2. 图形验证码，防机器刷单
+3. 接口限流防刷

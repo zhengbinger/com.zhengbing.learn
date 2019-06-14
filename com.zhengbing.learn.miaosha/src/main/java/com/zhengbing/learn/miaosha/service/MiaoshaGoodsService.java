@@ -14,8 +14,9 @@ public class MiaoshaGoodsService {
     @Autowired
     MiaoshaGoodsDao miaoshaGoodsDao;
 
-    public void reduceStock( long goodsId) {
-        miaoshaGoodsDao.reduceStock(goodsId);
+    public boolean reduceStock( long goodsId) {
+        int ret = miaoshaGoodsDao.reduceStock(goodsId);
+        return ret > 0;
     }
 
 }

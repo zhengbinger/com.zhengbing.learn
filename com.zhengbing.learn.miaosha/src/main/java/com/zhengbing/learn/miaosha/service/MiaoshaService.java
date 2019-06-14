@@ -1,5 +1,10 @@
 package com.zhengbing.learn.miaosha.service;
 
+import com.zhengbing.learn.miaosha.common.CodeMsg;
+import com.zhengbing.learn.miaosha.common.exception.GlobalException;
+import com.zhengbing.learn.miaosha.common.redis.MiaoshaKey;
+import com.zhengbing.learn.miaosha.common.redis.RedisService;
+import com.zhengbing.learn.miaosha.entity.MiaoshaOrder;
 import com.zhengbing.learn.miaosha.entity.MiaoshaUser;
 import com.zhengbing.learn.miaosha.entity.Orderinfo;
 import com.zhengbing.learn.miaosha.entity.vo.GoodsVO;
@@ -26,18 +31,59 @@ public class MiaoshaService {
     @Autowired
     MiaoshaOrderService miaoshaOrderService;
 
+    @Autowired
+    RedisService redisService;
+
     @Transactional
     public Orderinfo miaosha( MiaoshaUser user, GoodsVO goodsVO){
 
         // 减少秒杀库存
-        miaoshaGoodsService.reduceStock( goodsVO.getId() );
+        boolean ret = miaoshaGoodsService.reduceStock( goodsVO.getId() );
 
-        // 生成订单（ 1.生成基本订单 ）
-        Orderinfo order =  orderinfoService.createOrder( user, goodsVO );
+        if ( ret ){
+            // 生成订单（ 1.生成基本订单 ）
+            Orderinfo order =  orderinfoService.createOrder( user, goodsVO );
+            if ( null == order){
+                return null;
+            }
 
-        // 生成订单（ 2.生成秒杀订单 )
-        miaoshaOrderService.createMiaoshaOrder(user, goodsVO,order.getId());
+            // 生成秒杀订单（ 2.生成秒杀订单 )
+            MiaoshaOrder miaoshaOrder = miaoshaOrderService.createMiaoshaOrder(user, goodsVO,order.getId());
+            if ( null == miaoshaOrder ){
+                return null;
+            }
+            return order;
+        }
+        setGoodsOver(goodsVO.getId());
+        return null;
+    }
 
-        return order;
+    private void setGoodsOver( Long goodsId ) {
+        redisService.set( MiaoshaKey.isGoodsOver,""+goodsId,true);
+    }
+
+    /**
+     * 获取秒杀结果
+     *
+     * @param userId
+     * @param goodsId
+     * @return
+     */
+    public long getMiaoshaResult( long userId, long goodsId ) {
+        MiaoshaOrder order = miaoshaOrderService.getMiaoshaOrderByUserIdGoodsId( userId,goodsId );
+        if ( null != order ){
+            return order.getId();
+        }else {
+            if ( getGoodsOver( goodsId ) ){
+                throw new GlobalException( CodeMsg.MIAO_SHA_OVER );
+            }else {
+                return 0;
+            }
+        }
+
+    }
+
+    private boolean getGoodsOver( long goodsId ) {
+        return redisService.exists( MiaoshaKey.isGoodsOver,""+goodsId);
     }
 }

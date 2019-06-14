@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -52,12 +51,34 @@ public class UserController {
         return Result.success( result );
     }
 
-    @RequestMapping(value = "/mq",method = RequestMethod.GET)
-    @ResponseBody
-    public Result<Integer> mq(){
-       sender.send( "zhengbing" );
-        return Result.success( 1 );
-    }
+//    @RequestMapping(value = "/mq",method = RequestMethod.GET)
+//    @ResponseBody
+//    public Result<Integer> mq(){
+//        sender.sendTopic( "zhengbing" );
+//        return Result.success( 1 );
+//    }
+//
+//    @RequestMapping(value = "/mq/topic",method = RequestMethod.GET)
+//    @ResponseBody
+//    public Result<Integer> topic(){
+//        sender.sendTopic( "zhengbing" );
+//        return Result.success( 1 );
+//    }
+//
+//
+//    @RequestMapping(value = "/mq/fanout",method = RequestMethod.GET)
+//    @ResponseBody
+//    public Result<Integer> fanout(){
+//        sender.sendFanout( "zhengbing" );
+//        return Result.success( 1 );
+//    }
+//
+//    @RequestMapping(value = "/mq/header",method = RequestMethod.GET)
+//    @ResponseBody
+//    public Result<Integer> header(){
+//        sender.sendHeaders( "zhengbing" );
+//        return Result.success( 1 );
+//    }
 
     @RequestMapping("/redis/get")
     @ResponseBody
