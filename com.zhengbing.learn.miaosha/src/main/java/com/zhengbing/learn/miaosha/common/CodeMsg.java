@@ -13,6 +13,7 @@ public class CodeMsg {
     public static CodeMsg SUCCESS = new CodeMsg(0,"success");
     public static CodeMsg SERVER_ERROR = new CodeMsg(500000,"system error"  );
     public static CodeMsg BIND_ERROR = new CodeMsg(500001,"parameter invalidate error: %s"  );
+    public static CodeMsg REQUEST_ILLEGAL = new CodeMsg(500002,"illegal request"  );
 
     /** 登陆模块 5002xx **/
     public static  CodeMsg SESSION_ERROR = new CodeMsg(500200,"session error");
@@ -31,6 +32,7 @@ public class CodeMsg {
     public static CodeMsg MIAO_SHA_OVER = new CodeMsg(500500,"goods miaosha is over"  );
     public static CodeMsg REPEAT_MIAO_SHA = new CodeMsg(500501,"can not repeat miaosha"  );
     public static CodeMsg MIAO_SHA_ERROR = new CodeMsg(500502,"miaosha error"  );
+    public static CodeMsg MIAO_SHA_FAIL = new CodeMsg(500503,"miaosha fail"  );
 
 
     private CodeMsg( int code, String msg ) {

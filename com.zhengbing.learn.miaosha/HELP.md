@@ -143,5 +143,11 @@ For further reference, please consider the following sections:
 1. 秒杀接口隐藏
     思路：秒杀开始之前，先去请求接口获取秒杀地址
     接口改造，添加PathVariable参数
-2. 图形验证码，防机器刷单
+2. 图形验证码
+    思路：点击秒杀前，输入图形验证码，分散用户请求
+    添加生成图形验证码的接口
+    获取秒杀url的时候，验证验证码
+    scriptEngine
 3. 接口限流防刷
+   思路：对请求接口做防刷限流
+   单位时间内限制次数放入redis缓存，请求一次-1，时间过期则清理
