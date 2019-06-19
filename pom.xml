@@ -13,8 +13,8 @@
         <module>com.zhengbing.learn.miaosha</module>
         <module>com.zhengbing.learn.design</module>
         <module>com.zhengbing.learn.concurrence</module>
-        <module>com.zhengbing.learn.concurrence</module>
         <module>com.zhengbing.learn.jdksource</module>
+        <module>zhengbing-spring-boot-starter</module>
     </modules>
 
 
