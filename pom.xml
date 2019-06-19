@@ -10,7 +10,9 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>com.zhengbing.learn.redis</module>
-        <module>com.zhengbing.learn.jms</module>
+        <module>com.zhengbing.learn.miaosha</module>
+        <module>com.zhengbing.learn.design</module>
+        <module>com.zhenbing.learn.concurrence</module>
     </modules>
 
 

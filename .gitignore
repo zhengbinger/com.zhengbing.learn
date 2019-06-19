@@ -1,4 +1,3 @@
-HELP.md
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 
@@ -28,3 +27,8 @@ HELP.md
 ### VS Code ###
 .vscode/
 /.mvn/
+com.zhengbing.learn.jms/src/main/resources/
+com.zhengbing.learn.jms/src/test/
+com.zhengbing.learn.redis/src/main/
+com.zhengbing.learn.redis/target/
+com.zhengbing.learn.springcloud/.mvn/
