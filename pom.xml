@@ -12,7 +12,9 @@
         <module>com.zhengbing.learn.redis</module>
         <module>com.zhengbing.learn.miaosha</module>
         <module>com.zhengbing.learn.design</module>
-        <module>com.zhenbing.learn.concurrence</module>
+        <module>com.zhengbing.learn.concurrence</module>
+        <module>com.zhengbing.learn.concurrence</module>
+        <module>com.zhengbing.learn.jdksource</module>
     </modules>
 
 
