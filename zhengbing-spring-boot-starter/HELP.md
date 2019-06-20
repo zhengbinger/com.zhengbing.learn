@@ -1,6 +1,6 @@
 # 自定义starter
 ## 创建maven项目（ maven-archetype-quickstart ）
-    命名规则：注意artifactId的命名规则，Spring官方Starter通常命名为spring-boot-starter-{name}
+命名规则：注意artifactId的命名规则，Spring官方Starter通常命名为spring-boot-starter-{name}
         如 spring-boot-starter-web， Spring官方建议非官方Starter命名应遵循{name}-spring-boot-starter
         的格式, 如mybatis-spring-boot-starter。这里创建的项目的artifactId为zhengbing-spring-boot-starte
 ## 引入必要的依赖
@@ -87,5 +87,5 @@
       }
     }
 
-## 输出结果如下：
+## 输出结果：
     大叫好，我叫：zhengbing，今年：0岁，性别：M 
