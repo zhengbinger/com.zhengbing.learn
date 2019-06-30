@@ -9,6 +9,7 @@ package singleton;
 public enum SingletonEnum implements SingletonEnumInterface {
 
     INSTANCE {
+        @Override
         public void doSomeThing() {
             System.out.println( "china is good!!!" );
         }

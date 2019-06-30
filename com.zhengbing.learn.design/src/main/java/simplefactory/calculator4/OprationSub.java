@@ -6,6 +6,7 @@ package simplefactory.calculator4;
  */
 public class OprationSub extends Opration {
 
+    @Override
     public double getResult(){
         double result = 0d;
         result = getStrNumberA() - getStrNumberB();

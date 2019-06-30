@@ -66,7 +66,7 @@ public class UserUtil {
 			out.flush();
 			InputStream inputStream = co.getInputStream();
 			ByteArrayOutputStream bout = new ByteArrayOutputStream();
-			byte buff[] = new byte[1024];
+			byte[] buff = new byte[1024];
 			int len = 0;
 			while((len = inputStream.read(buff)) >= 0) {
 				bout.write(buff, 0 ,len);

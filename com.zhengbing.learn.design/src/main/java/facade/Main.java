@@ -1,9 +1,10 @@
 package facade;
 
 /**
- * create by zhengbing on 2019-06-30.
- * email mydreambing@126.com
- * since version 1.0
+ * @author zhengbing
+ * @date 2019-06-30.
+ * @email mydreambing@126.com
+ * @since version 1.0
  */
 public class Main {
     public static void main(String[] args) {

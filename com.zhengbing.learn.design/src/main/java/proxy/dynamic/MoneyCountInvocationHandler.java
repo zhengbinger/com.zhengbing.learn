@@ -39,7 +39,8 @@ public class MoneyCountInvocationHandler implements InvocationHandler {
      *
      * @throws Throwable
      */
-    public Object invoke( Object proxy, Method method, Object[] args ) throws Throwable {
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         Object result = method.invoke( object, args );
         moneyCount += 0.05;
         System.out.println( "发送短信成功，共花了：" + moneyCount + "元" );

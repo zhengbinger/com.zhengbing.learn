@@ -25,6 +25,7 @@ public class MoneyCountInvocationHandler implements InvocationHandler {
    * @return
    * @throws Throwable
    */
+  @Override
   public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
     Object result = method.invoke(object, args);
     moneyCount += 0.05;
