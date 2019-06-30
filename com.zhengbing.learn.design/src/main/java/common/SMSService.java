@@ -1,4 +1,4 @@
-package proxy;
+package common;
 
 /**
  * Created by zhengbing on 2019-06-20. Since Version 1.0

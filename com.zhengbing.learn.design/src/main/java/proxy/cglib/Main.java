@@ -1,6 +1,6 @@
 package proxy.cglib;
 
-import proxy.SMSServiceImpl;
+import common.SMSServiceImpl;
 
 /**
  * Created by zhengbing on 2019-06-26.
@@ -9,11 +9,11 @@ import proxy.SMSServiceImpl;
  */
 public class Main {
 
-    public static void main( String[] args ) {
+    public static void main(String[] args) {
 
         SMSServiceImpl smsService = new SMSServiceImpl();
         CglibProxy cglibProxy = new CglibProxy();
-        SMSServiceImpl smsServiceProxy = (SMSServiceImpl) cglibProxy.getInstance( smsService );
+        SMSServiceImpl smsServiceProxy = (SMSServiceImpl) cglibProxy.getInstance(smsService);
         smsService.sendMessage();
     }
 }

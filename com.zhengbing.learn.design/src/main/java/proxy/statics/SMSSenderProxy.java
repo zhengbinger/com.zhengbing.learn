@@ -1,9 +1,11 @@
 package proxy.statics;
 
-import proxy.SMSService;
+import common.SMSService;
 
 /**
- * Created by zhengbing on 2019-06-26. Email mydreambing@126.com Since Version 1.0
+ * Created by zhengbing on 2019-06-26.
+ * Email mydreambing@126.com
+ * Since Version 1.0
  */
 public class SMSSenderProxy implements SMSService {
 
@@ -12,7 +14,7 @@ public class SMSSenderProxy implements SMSService {
      */
     private SMSService smsService;
 
-    public SMSSenderProxy( final SMSService smsService ) {
+    public SMSSenderProxy(final SMSService smsService) {
         this.smsService = smsService;
     }
 
@@ -21,8 +23,8 @@ public class SMSSenderProxy implements SMSService {
      */
     @Override
     public void sendMessage() {
-        System.out.println( "发送短信前..." );
+        System.out.println("发送短信前...");
         smsService.sendMessage();
-        System.out.println( "发送短信后..." );
+        System.out.println("发送短信后...");
     }
 }
