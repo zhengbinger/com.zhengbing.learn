@@ -1,5 +1,6 @@
 package com.zhengbing.learn.jdksource.collection;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,7 @@ public class StreamDemo {
         Stream<String> stream = strings.stream();
         Stream<String> stream2 = stream.limit(2);
         Optional<String> optional = stream.findFirst();
+        List<?> list = new ArrayList<>();
         System.out.println(optional);
     }
 }
